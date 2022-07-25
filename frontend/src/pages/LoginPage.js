@@ -4,8 +4,17 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import logo from "assets/images/text_logo.png";
+import { useState } from "react";
 
 function LoginPage() {
+  const [userId, setUserId] = useState("");
+  const [userPW, setUserPW] = useState("");
+
+  function submitLogin() {
+    console.log(userId);
+    console.log(userPW);
+  }
+
   return (
     <Container className="login-form" maxWidth="xs" fixed>
       <Grid
@@ -23,14 +32,26 @@ function LoginPage() {
           label="아이디"
           variant="outlined"
           size="small"
+          value={userId}
+          onChange={(e) => {
+            setUserId(e.target.value);
+          }}
         />
         <TextField
           className="login-form__field"
           label="비밀번호"
           variant="outlined"
           size="small"
+          value={userPW}
+          onChange={(e) => {
+            setUserPW(e.target.value);
+          }}
         />
-        <Button className="login-form__button" variant="contained">
+        <Button
+          className="login-form__button"
+          variant="contained"
+          onClick={submitLogin}
+        >
           로그인
         </Button>
         <Button className="login-form__button" variant="contained">
