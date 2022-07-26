@@ -1,3 +1,5 @@
+@import '../common/utils';
+
 @mixin set-layout {
     margin-top: 1rem !important;
     width: 80% !important;
@@ -23,3 +25,49 @@ a {
     color: rgb(120, 120, 120);
 }
 
+.social-login {
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.kakao-login {
+  &__button {
+    height: auto;
+
+    @include mobile() {
+      width: $oauth-mobile-button-size;
+    }
+
+    @include tablet() {
+      width: $oauth-tablet-button-size;
+    }
+
+    @include desktop() {
+      width: $oauth-desktop-button-size;
+    }
+  }
+}
+
+.google-login {
+  &__button {
+    display: flex;
+    height: auto;
+    background: #FFFFFF;
+    border-radius: 5px;
+    align-items: center;
+    text-decoration: none;
+
+    @include mobile() {
+      width: $oauth-mobile-button-size;
+    }
+
+    @include tablet() {
+      width: $oauth-tablet-button-size;
+    }
+
+    @include desktop() {
+      width: $oauth-desktop-button-size;
+    }
+  }
+}
