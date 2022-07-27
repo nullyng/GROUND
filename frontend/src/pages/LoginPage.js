@@ -6,6 +6,9 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+import GoogleButton from "components/Login/OAuth/GoogleButton";
+import KakaoButton from "components/Login/OAuth/KakaoButton.js";
+
 import { useState } from "react";
 
 function LoginPage() {
@@ -24,29 +27,27 @@ function LoginPage() {
     label: "비밀번호",
     variant: "outlined",
     size: "small",
-  })
+  });
 
   function submitLogin() {
     let isLoginOk = true;
-    let newIdProps = {...idProps};
-    let newPwProps = {...pwProps};
+    let newIdProps = { ...idProps };
+    let newPwProps = { ...pwProps };
 
-    if(userId.trim() === "") {
+    if (userId.trim() === "") {
       isLoginOk = false;
       newIdProps.error = true;
       newIdProps.helperText = "아이디를 입력해주세요";
-    }
-    else {
+    } else {
       newIdProps.error = false;
       newIdProps.helperText = "";
     }
 
-    if(userPW.trim() === "") {
+    if (userPW.trim() === "") {
       isLoginOk = false;
       newPwProps.error = true;
       newPwProps.helperText = "비밀번호를 입력해주세요";
-    }
-    else {
+    } else {
       newPwProps.error = false;
       newPwProps.helperText = "";
     }
@@ -54,7 +55,7 @@ function LoginPage() {
     setIdProps(newIdProps);
     setPwProps(newPwProps);
 
-    if(isLoginOk) {
+    if (isLoginOk) {
       // 로그인 요청
     }
   }
@@ -114,12 +115,12 @@ function LoginPage() {
         >
           로그인
         </Button>
-        <Button className="login-form__button" variant="contained">
-          구글 로그인
-        </Button>
-        <Button className="login-form__button" variant="contained">
-          카카오 로그인
-        </Button>
+        <Grid container className="social-login">
+          <Grid item className="social-login__button">
+            <KakaoButton />
+            <GoogleButton />
+          </Grid>
+        </Grid>
         <Grid
           className="login-form__bottom"
           container
