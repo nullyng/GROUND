@@ -74,17 +74,6 @@ function LoginPage() {
         <Grid className="login-form__logo" item>
           <img className="logo" src={logo} alt="text_logo" width="300px" />
         </Grid>
-        {/* <TextField
-          className="login-form__field"
-          label="아이디"
-          variant="outlined"
-          size="small"
-          value={userId}
-          helperText="아이디를 입력해주세요"
-          onChange={(e) => {
-            setUserId(e.target.value);
-          }}
-        /> */}
         <TextField
           {...idProps}
           value={userId}
@@ -92,17 +81,6 @@ function LoginPage() {
             setUserId(e.target.value);
           }}
         />
-        {/* <TextField
-          className="login-form__field"
-          label="비밀번호"
-          variant="outlined"
-          size="small"
-          value={userPW}
-          helperText="비밀번호를 입력해주세요"
-          onChange={(e) => {
-            setUserPW(e.target.value);
-          }}
-        /> */}
         <TextField
           {...pwProps}
           value={userPW}
