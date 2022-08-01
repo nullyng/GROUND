@@ -12,11 +12,12 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "t_board")
 public class Board {
@@ -73,6 +74,7 @@ public class Board {
     public Board(String content, boolean privateYN){
         this.content = content;
         this.privateYN = privateYN;
+
 //        for ()
     }
 
@@ -80,6 +82,14 @@ public class Board {
     public void setUser(User user) {
         this.user = user;
 //        user.getBoard().add(this);
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 //
 

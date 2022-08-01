@@ -20,7 +20,6 @@ public class BoardImage {
     @JoinColumn(name = "board_id")
     private Board board;
 
-
     @Column(name = "post_image_url")
     private String imageUrl;
 
@@ -29,12 +28,9 @@ public class BoardImage {
 
 
     @Builder
-    public BoardImage(String imageUrl, String imageType) {
+    public BoardImage(String imageUrl, String imageType, Board board) {
         this.imageUrl = imageUrl;
         this.imageType = imageType;
-    }
-//
-    public void setBoard(Board board){
         this.board = board;
         // 게시글에 현재 파일이 존재하지 않는다면
         if(!board.getImages().contains(this)) {
@@ -42,4 +38,6 @@ public class BoardImage {
             board.getImages().add(this);
         }
     }
+//
+
 }

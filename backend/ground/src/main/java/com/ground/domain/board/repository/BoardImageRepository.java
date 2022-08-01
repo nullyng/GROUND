@@ -1,4 +1,7 @@
 package com.ground.domain.board.repository;
 
-public class BoardImageRepository {
+import com.ground.domain.board.entity.BoardImage;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BoardImageRepository extends JpaRepository<BoardImage, Long> {
 }

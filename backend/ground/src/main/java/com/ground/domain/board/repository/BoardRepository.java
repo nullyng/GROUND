@@ -1,21 +1,10 @@
 package com.ground.domain.board.repository;
 import com.ground.domain.board.entity.Board;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 
-@Repository
-public class BoardRepository {
 
-    private final EntityManager em;
+public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    public BoardRepository(EntityManager em) {
-        this.em = em;
-    }
-
-    public void save(Board board) {
-        em.persist(board);
-    }
-    public Board findOne(Long id) {
-        return em.find(Board.class, id);
-    }
 }

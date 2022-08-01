@@ -3,6 +3,7 @@ package com.ground.domain.board.controller;
 import com.ground.domain.board.dto.BoardAddRequestDto;
 import com.ground.domain.board.entity.Board;
 import com.ground.domain.board.service.BoardService;
+import com.ground.domain.user.entity.User;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -32,15 +33,14 @@ public class BoardController {
 
     // =================== 게시글 작성 ===================
     @ApiOperation(value = "게시물 작성")
-    public String addBoard(@RequestBody final BoardAddRequestDto params){
+    @PostMapping
+    public Long addBoard(@RequestBody final BoardAddRequestDto params){
+
         return boardService.addBoard(params);
         // 유저도 넣어야함
     }
 
-    @Data
-    static class addBoardResponse {
-        private Long id     ;
-    }
+
 
 
 
