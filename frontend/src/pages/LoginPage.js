@@ -11,6 +11,7 @@ import KakaoButton from "components/Login/OAuth/KakaoButton.js";
 import GrButton from "components/common/GrButton";
 
 import { useState } from "react";
+import { Divider } from "@mui/material";
 
 function LoginPage() {
   const [userId, setUserId] = useState("");
@@ -114,13 +115,18 @@ function LoginPage() {
           variant="contained"
           onClick={submitLogin}
         >
+          로그인
         </GrButton>
+        <Divider className="login-form__devider" flexItem>
+          소셜 계정으로 로그인
+        </Divider>
         <Grid container className="social-login">
           <Grid item className="social-login__button">
             <KakaoButton />
             <GoogleButton />
           </Grid>
         </Grid>
+        <Divider className="login-form__devider" flexItem />
         <Grid
           className="login-form__bottom"
           container
