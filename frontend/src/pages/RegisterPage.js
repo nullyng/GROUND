@@ -2,14 +2,58 @@ import logo from "assets/images/text_logo.png";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 
 import BasicInfo from "components/Register/BasicInfo";
 import OtherInfo from "components/Register/OtherInfo";
 
 import "styles/Register/RegisterPage.scss";
 
+import { useState, useEffect } from "react";
+import { signUp } from "api/register";
+
 function RegisterPage() {
+  const [next, setNext] = useState(false);
+  const [basicInfo, setBasicInfo] = useState({});
+  const [otherInfo, setOtherInfo] = useState({});
+
+  // 다음 버튼 핸들러
+  const goToOtherInfo = () => {
+    if (!next) {
+      setNext(!next);
+    }
+  };
+  // state 변경 함수
+  const changeBasicInfo = (newBasicInfo) => {
+    console.log(newBasicInfo);
+    setBasicInfo(newBasicInfo);
+  };
+  const changeOtherInfo = (newOtherInfo) => {
+    console.log(newOtherInfo);
+    setOtherInfo(newOtherInfo);
+  };
+  // 회원가입 요청
+  const sendRequest = () => {
+    const info = Object.assign({}, basicInfo, otherInfo);
+    console.log(info);
+    signUp(info);
+  };
+
+  useEffect(() => {
+    // 새로고침, 창닫기 alert
+    const preventClose = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
+  }, []);
+
   return (
     <Container maxWidth="xs">
       <Grid
@@ -22,9 +66,18 @@ function RegisterPage() {
         <Grid className="register-form__logo" item>
           <img className="logo" src={logo} alt="text_logo" width="300rem" />
         </Grid>
-        <BasicInfo />
-        <OtherInfo />
-        <Button variant="contained">회원가입</Button>
+        {!next && (
+          <BasicInfo
+            changeBasicInfo={changeBasicInfo}
+            goToOtherInfo={goToOtherInfo}
+          />
+        )}
+        {next && (
+          <OtherInfo
+            changeOtherInfo={changeOtherInfo}
+            sendRequest={sendRequest}
+          />
+        )}
       </Grid>
     </Container>
   );
