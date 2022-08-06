@@ -7,7 +7,8 @@ import { useForm, Controller } from "react-hook-form";
 import ErrorMessage from "./ErrorMessage";
 
 function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
-  const [isDuplicated, setIsDuplicated] = useState(true);
+  const [isIdDup, setIsIdDup] = useState(false)
+  const [isEmailDup, setIsEmailDup] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const {
@@ -39,14 +40,14 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
   };
 
   // 아이디 중복 확인 버튼 핸들러
-  const onIdDuplicatedCheck = () => {
+  const onIdDupCheck = () => {
     const id = getValues("id");
     console.log("아이디 중복 확인: " + id);
   };
   // 이메일 중복 확인 버튼 핸들러
-  const onEmailDuplicatedCheck = () => {
+  const onEmailDupCheck = () => {
     const email = getValues("email");
-    setIsDuplicated(!isDuplicated);
+    setIsEmailDup(!isEmailDup);
     console.log("이메일 중복 확인: " + email);
   };
   // 이메일 전송 버튼 핸들러
@@ -93,13 +94,14 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
           <GrButton
             className="register-form__innerBtn register-form__innerBtn--bottom"
             variant="contained"
-            onClick={onIdDuplicatedCheck}
+            onClick={onIdDupCheck}
           >
             중복확인
           </GrButton>
         </Grid>
         <Grid item>
           {errors.id && <ErrorMessage>{errors.id.message}</ErrorMessage>}
+          {isIdDup && <ErrorMessage><span>이미 존재하는 아이디입니다.</span></ErrorMessage>}
         </Grid>
       </Grid>
       <Grid
@@ -140,7 +142,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
                 type="password"
                 {...field}
                 {...register("passCheck", {
-                  required: "비밀번호 확인을 해주세요",
+                  required: "비밀번호를 한번 더 입력해주세요.",
                 })}
               />
             )}
@@ -176,16 +178,16 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
               />
             )}
           />
-          {isDuplicated && (
+          {isEmailDup && (
             <GrButton
               className="register-form__innerBtn register-form__innerBtn--bottom"
               variant="contained"
-              onClick={onEmailDuplicatedCheck}
+              onClick={onEmailDupCheck}
             >
               중복확인
             </GrButton>
           )}
-          {!isDuplicated && !isSubmitted && (
+          {!isEmailDup && !isSubmitted && (
             <GrButton
               className="register-form__innerBtn register-form__innerBtn--bottom"
               variant="contained"
@@ -205,6 +207,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
           )}
         </Grid>
         {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+        {isEmailDup && <ErrorMessage><span>이미 존재하는 이메일입니다.</span></ErrorMessage>}
       </Grid>
       {isSubmitted && (
         <Grid

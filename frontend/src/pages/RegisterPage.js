@@ -33,7 +33,8 @@ function RegisterPage() {
   };
   // 회원가입 요청
   const sendRequest = () => {
-    const info = Object.assign({}, basicInfo, otherInfo);
+    let info = {};
+    Object.assign(info, basicInfo, otherInfo);
     console.log(info);
     signUp(info);
   };
