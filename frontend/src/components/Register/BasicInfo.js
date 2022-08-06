@@ -76,7 +76,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
             control={control}
             render={({ field }) => (
               <GrTextField
-                className="register-form__field"
+                className="register-form__field register-form__field--fullWidth"
                 size="small"
                 label="아이디"
                 {...field}
@@ -91,7 +91,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
             )}
           />
           <GrButton
-            className="register-form__innerBtn"
+            className="register-form__innerBtn register-form__innerBtn--bottom"
             variant="contained"
             onClick={onIdDuplicatedCheck}
           >
@@ -161,7 +161,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
             control={control}
             render={({ field }) => (
               <GrTextField
-                className="register-form__field"
+                className="register-form__field register-form__field--fullWidth"
                 size="small"
                 label="이메일"
                 {...field}
@@ -178,7 +178,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
           />
           {isDuplicated && (
             <GrButton
-              className="register-form__innerBtn"
+              className="register-form__innerBtn register-form__innerBtn--bottom"
               variant="contained"
               onClick={onEmailDuplicatedCheck}
             >
@@ -187,7 +187,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
           )}
           {!isDuplicated && !isSubmitted && (
             <GrButton
-              className="register-form__innerBtn"
+              className="register-form__innerBtn register-form__innerBtn--bottom"
               variant="contained"
               onClick={onCertCodeSend}
             >
@@ -196,7 +196,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
           )}
           {isSubmitted && (
             <GrButton
-              className="register-form__innerBtn"
+              className="register-form__innerBtn register-form__innerBtn--bottom"
               variant="contained"
               onClick={onCertCodeSend}
             >
@@ -242,6 +242,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
       <GrButton
         className="register-form__button"
         variant="contained"
+        color="secondary"
         onClick={handleSubmit(onSubmit)}
       >
         다음
