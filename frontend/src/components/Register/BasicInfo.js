@@ -1,13 +1,18 @@
 import Grid from "@mui/material/Grid";
+import { idDupCheck } from "api/register";
 import GrButton from "components/common/GrButton";
 import GrTextField from "components/common/GrTextField";
 
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import ErrorMessage from "./ErrorMessage";
+import OkMessage from "./OkMessage";
+
+const idReg = /^[a-zA-Z0-9]{5,20}$/;
 
 function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
-  const [isIdDup, setIsIdDup] = useState(false)
+  // 아이디 중복 확인 됐는지
+  const [isIdDupCheckd, setIsIdDupCheckd] = useState(false);
   const [isEmailDup, setIsEmailDup] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -17,6 +22,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
     control,
     formState: { errors },
     getValues,
+    setError,
   } = useForm({
     defaultValues: {
       id: "",
@@ -40,9 +46,48 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
   };
 
   // 아이디 중복 확인 버튼 핸들러
-  const onIdDupCheck = () => {
+  const handleIdDupCheck = () => {
     const id = getValues("id");
-    console.log("아이디 중복 확인: " + id);
+    if (id.trim() === "") {
+      [
+        { type: "emptyId", name: "id", message: "아이디를 입력해주세요." },
+      ].forEach(({ name, type, message }) => {
+        setError(name, { type, message });
+      });
+    } else if (idReg.test(id) === false) {
+      [
+        {
+          type: "invalidId",
+          name: "id",
+          message: "아이디는 영문, 숫자 5-20자입니다.",
+        },
+      ].forEach(({ name, type, message }) => {
+        setError(name, { type, message });
+      });
+    } else {
+      idDupCheck(
+        id,
+        (res) => {
+          if (res.data === false) {
+            setIsIdDupCheckd(false);
+            [
+              {
+                type: "dupId",
+                name: "id",
+                message: "이미 사용 중인 아이디입니다.",
+              },
+            ].forEach(({ name, type, message }) => {
+              setError(name, { type, message });
+            });
+          } else {
+            setIsIdDupCheckd(true);
+          }
+        },
+        (err) => {
+          setIsIdDupCheckd(true);
+        }
+      );
+    }
   };
   // 이메일 중복 확인 버튼 핸들러
   const onEmailDupCheck = () => {
@@ -84,7 +129,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
                 {...register("id", {
                   required: "아이디를 입력해주세요",
                   pattern: {
-                    value: /^[a-zA-Z0-9|]{5,20}$/,
+                    value: idReg,
                     message: "아이디는 영문, 숫자 5-20자입니다",
                   },
                 })}
@@ -94,14 +139,18 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
           <GrButton
             className="register-form__innerBtn register-form__innerBtn--bottom"
             variant="contained"
-            onClick={onIdDupCheck}
+            onClick={handleIdDupCheck}
           >
             중복확인
           </GrButton>
         </Grid>
         <Grid item>
           {errors.id && <ErrorMessage>{errors.id.message}</ErrorMessage>}
-          {isIdDup && <ErrorMessage><span>이미 존재하는 아이디입니다.</span></ErrorMessage>}
+          {isIdDupCheckd && (
+            <OkMessage>
+              <span>사용 가능한 아이디입니다. </span>
+            </OkMessage>
+          )}
         </Grid>
       </Grid>
       <Grid
@@ -207,7 +256,11 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
           )}
         </Grid>
         {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-        {isEmailDup && <ErrorMessage><span>이미 존재하는 이메일입니다.</span></ErrorMessage>}
+        {isEmailDup && (
+          <ErrorMessage>
+            <span>이미 존재하는 이메일입니다.</span>
+          </ErrorMessage>
+        )}
       </Grid>
       {isSubmitted && (
         <Grid

@@ -36,7 +36,7 @@ function RegisterPage() {
     let info = {};
     Object.assign(info, basicInfo, otherInfo);
     console.log(info);
-    signUp(info);
+    // signUp(info);
   };
 
   useEffect(() => {

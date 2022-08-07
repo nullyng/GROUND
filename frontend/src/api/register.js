@@ -7,7 +7,8 @@ function signUp(info, success, fail) {
 }
 
 function idDupCheck(id, success, fail) {
-  api.get(`/user/isUsedUsername`, id).then(success).catch(fail);
+  console.log(typeof id);
+  api.get(`/user/isUsedUsername?username=${id}`).then(success).catch(fail);
 }
 
 function emailDupCheck(email, success, fail) {
