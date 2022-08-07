@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import { idDupCheck } from "api/register";
+import { emailAuth, emailDupCheck, idDupCheck } from "api/register";
 import GrButton from "components/common/GrButton";
 import GrTextField from "components/common/GrTextField";
 
@@ -9,12 +9,12 @@ import ErrorMessage from "./ErrorMessage";
 import OkMessage from "./OkMessage";
 
 const idReg = /^[a-zA-Z0-9]{5,20}$/;
+const emailReg =
+  /^[a-zA-Z0-9]([-_.]?[a-zA-Z0-9])*@[a-zA-Z0-9]([-_.]?[a-zA-Z0-9])*.[a-zA-Z]{2,3}$/;
 
 function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
-  // 아이디 중복 확인 됐는지
-  const [isIdDupCheckd, setIsIdDupCheckd] = useState(false);
-  const [isEmailDup, setIsEmailDup] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isIdDupChecked, setIsIdDupChecked] = useState(false);
+  const [isEmailDupChecked, setIsEmailDupChecked] = useState(false);
 
   const {
     register,
@@ -23,6 +23,8 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
     formState: { errors },
     getValues,
     setError,
+    trigger,
+    clearErrors,
   } = useForm({
     defaultValues: {
       id: "",
@@ -36,7 +38,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
   // 다음 버튼 핸들러
   const onSubmit = (data) => {
     const newBasicInfo = {
-      id: data.id,
+      username: data.id,
       pass: data.pass,
       email: data.email,
     };
@@ -46,63 +48,57 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
   };
 
   // 아이디 중복 확인 버튼 핸들러
-  const handleIdDupCheck = () => {
-    const id = getValues("id");
-    if (id.trim() === "") {
-      [
-        { type: "emptyId", name: "id", message: "아이디를 입력해주세요." },
-      ].forEach(({ name, type, message }) => {
-        setError(name, { type, message });
-      });
-    } else if (idReg.test(id) === false) {
-      [
-        {
-          type: "invalidId",
-          name: "id",
-          message: "아이디는 영문, 숫자 5-20자입니다.",
-        },
-      ].forEach(({ name, type, message }) => {
-        setError(name, { type, message });
-      });
-    } else {
-      idDupCheck(
-        id,
-        (res) => {
-          if (res.data === false) {
-            setIsIdDupCheckd(false);
-            [
-              {
-                type: "dupId",
-                name: "id",
-                message: "이미 사용 중인 아이디입니다.",
-              },
-            ].forEach(({ name, type, message }) => {
-              setError(name, { type, message });
-            });
-          } else {
-            setIsIdDupCheckd(true);
-          }
-        },
-        (err) => {
-          setIsIdDupCheckd(true);
+  const handleIdDupCheck = async () => {
+    const valid = await trigger("id");
+    if (valid === true) {
+      idDupCheck(getValues("id"), (res) => {
+        if (res.data === false) {
+          setIsIdDupChecked(false);
+          setError("id", {
+            type: "idDup",
+            message: "이미 사용 중인 아이디입니다.",
+          });
+        } else {
+          clearErrors("id");
+          setIsIdDupChecked(true);
         }
-      );
+      });
     }
   };
+
   // 이메일 중복 확인 버튼 핸들러
-  const onEmailDupCheck = () => {
-    const email = getValues("email");
-    setIsEmailDup(!isEmailDup);
-    console.log("이메일 중복 확인: " + email);
-  };
-  // 이메일 전송 버튼 핸들러
-  const onCertCodeSend = () => {
-    const email = getValues("email");
-    if (!isSubmitted) {
-      setIsSubmitted(true);
+  const handleEmailDupCheck = async () => {
+    const valid = await trigger("email");
+    if (valid === true) {
+      emailDupCheck(getValues("email"), (res) => {
+        if (res.data === false) {
+          setIsEmailDupChecked(false);
+          setError("email", {
+            type: "emailDup",
+            message: "이미 사용 중인 이메일입니다.",
+          });
+        } else {
+          clearErrors("email");
+          setIsEmailDupChecked(true);
+          handleCertCodeSend();
+        }
+      });
     }
-    console.log("인증번호 전송: " + email);
   };
+
+  // 인증번호 전송 버튼 핸들러
+  const handleCertCodeSend = () => {
+    emailAuth(
+      getValues("email"),
+      (res) => {
+        console.log(res.data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
   // 인증 버튼 핸들러
   const onCertCodeSubmit = () => {
     const certCode = getValues("cert");
@@ -146,7 +142,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
         </Grid>
         <Grid item>
           {errors.id && <ErrorMessage>{errors.id.message}</ErrorMessage>}
-          {isIdDupCheckd && (
+          {isIdDupChecked && (
             <OkMessage>
               <span>사용 가능한 아이디입니다. </span>
             </OkMessage>
@@ -219,50 +215,40 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
                 {...register("email", {
                   required: "이메일을 입력해주세요",
                   pattern: {
-                    value:
-                      /^[a-zA-Z0-9]([-_.]?[a-zA-Z0-9])*@[a-zA-Z0-9]([-_.]?[a-zA-Z0-9])*.[a-zA-Z]{2,3}$/,
+                    value: emailReg,
                     message: "올바르지 않은 이메일 형식입니다.",
                   },
                 })}
               />
             )}
           />
-          {isEmailDup && (
+          {!isEmailDupChecked && (
             <GrButton
               className="register-form__innerBtn register-form__innerBtn--bottom"
               variant="contained"
-              onClick={onEmailDupCheck}
+              onClick={handleEmailDupCheck}
             >
               중복확인
             </GrButton>
           )}
-          {!isEmailDup && !isSubmitted && (
+          {isEmailDupChecked && (
             <GrButton
               className="register-form__innerBtn register-form__innerBtn--bottom"
               variant="contained"
-              onClick={onCertCodeSend}
-            >
-              전송
-            </GrButton>
-          )}
-          {isSubmitted && (
-            <GrButton
-              className="register-form__innerBtn register-form__innerBtn--bottom"
-              variant="contained"
-              onClick={onCertCodeSend}
+              onClick={handleCertCodeSend}
             >
               재전송
             </GrButton>
           )}
         </Grid>
         {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-        {isEmailDup && (
-          <ErrorMessage>
-            <span>이미 존재하는 이메일입니다.</span>
-          </ErrorMessage>
+        {isEmailDupChecked && (
+          <OkMessage>
+            <span>이메일로 전송된 인증번호를 확인해주세요.</span>
+          </OkMessage>
         )}
       </Grid>
-      {isSubmitted && (
+      {isEmailDupChecked && (
         <Grid
           className="register-form__inner-wrapper"
           container
