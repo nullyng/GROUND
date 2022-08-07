@@ -11,7 +11,11 @@ import "styles/Register/RegisterPage.scss";
 import { useState, useEffect } from "react";
 import { signUp } from "api/register";
 
+import { useNavigate } from "react-router-dom";
+
 function RegisterPage() {
+  const navigate = useNavigate();
+
   const [next, setNext] = useState(false);
   const [basicInfo, setBasicInfo] = useState({});
   const [otherInfo, setOtherInfo] = useState({});
@@ -24,19 +28,28 @@ function RegisterPage() {
   };
   // state 변경 함수
   const changeBasicInfo = (newBasicInfo) => {
-    console.log(newBasicInfo);
     setBasicInfo(newBasicInfo);
   };
   const changeOtherInfo = (newOtherInfo) => {
-    console.log(newOtherInfo);
     setOtherInfo(newOtherInfo);
+    sendRequest();
   };
   // 회원가입 요청
   const sendRequest = () => {
     let info = {};
     Object.assign(info, basicInfo, otherInfo);
     console.log(info);
-    // signUp(info);
+    signUp(
+      info,
+      (res) => {
+        if (res.data === true) {
+          navigate("/")
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   };
 
   useEffect(() => {
