@@ -12,11 +12,7 @@ import { useState, useEffect } from "react";
 import { signUp } from "api/register";
 import RegisterModal from "components/Register/RegisterModal";
 
-import { useNavigate } from "react-router-dom";
-
 function RegisterPage() {
-  const navigate = useNavigate();
-
   const [next, setNext] = useState(false);
   const [basicInfo, setBasicInfo] = useState({});
   const [otherInfo, setOtherInfo] = useState({});
@@ -45,7 +41,7 @@ function RegisterPage() {
       info,
       (res) => {
         if (res.data === true) {
-          navigate("/")
+          setOpen(true);
         }
       },
       (err) => {
