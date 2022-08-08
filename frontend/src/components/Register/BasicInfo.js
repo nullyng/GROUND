@@ -242,6 +242,7 @@ function BasicInfo({ changeBasicInfo, goToOtherInfo }) {
       <GrButton
         className="register-form__button"
         variant="contained"
+        color="secondary"
         onClick={handleSubmit(onSubmit)}
       >
         다음

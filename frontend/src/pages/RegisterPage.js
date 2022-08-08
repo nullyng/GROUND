@@ -10,6 +10,7 @@ import "styles/Register/RegisterPage.scss";
 
 import { useState, useEffect } from "react";
 import { signUp } from "api/register";
+import RegisterModal from "components/Register/RegisterModal";
 
 function RegisterPage() {
   const [next, setNext] = useState(false);
@@ -79,6 +80,7 @@ function RegisterPage() {
           />
         )}
       </Grid>
+      <RegisterModal />
     </Container>
   );
 }
