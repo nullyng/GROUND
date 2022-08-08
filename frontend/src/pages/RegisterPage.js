@@ -16,6 +16,7 @@ function RegisterPage() {
   const [next, setNext] = useState(false);
   const [basicInfo, setBasicInfo] = useState({});
   const [otherInfo, setOtherInfo] = useState({});
+  const [open, setOpen] = useState(false);
 
   // 다음 버튼 핸들러
   const goToOtherInfo = () => {
@@ -80,7 +81,7 @@ function RegisterPage() {
           />
         )}
       </Grid>
-      <RegisterModal />
+      <RegisterModal open={open} setOpen={setOpen}/>
     </Container>
   );
 }

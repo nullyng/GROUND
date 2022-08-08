@@ -45,7 +45,30 @@
     padding: 0.3rem 0 0 0.3rem;
   }
 
-  &__top, &__bottom {
+  &__top,
+  &__bottom {
     width: 100%;
+  }
+}
+
+.register-modal {
+  &__logo-wrapper {
+    width: 80% !important;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  &__logo {
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 1rem;
+    // font-weight: bold;
+    padding-bottom: 2rem;
+  }
+
+  &__button {
+    width: 60%;
   }
 }
