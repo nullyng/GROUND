@@ -7,6 +7,10 @@ import WelcomePage from "pages/WelcomePage";
 import RegisterPage from "pages/RegisterPage";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Follow from "components/Feed/Follow/Follow";
+import Latest from "components/Feed/Latest/Latest";
+import FeedPage from "pages/FeedPage";
+import Search from "components/Feed/Search/Search";
 
 function App() {
   return (
@@ -24,6 +28,11 @@ function App() {
         />
         <Route path="/findid" element={<FindIdPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/feed" element={<FeedPage />}>
+          <Route path="follow" element={<Follow />} />
+          <Route path="latest" element={<Latest />} />
+          <Route path="search" element={<Search />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
