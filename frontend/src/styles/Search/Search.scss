@@ -1,11 +1,77 @@
 @import "../common/utils";
 
+$secondary: #18978f;
+$modal-height: 420px;
+$modal-button: 45px;
+$modal-title-padding: 10px;
+$modal-title-size: 20px;
+$modal-title: ($modal-title-padding) * 2 + ($modal-title-size) + 7px;
+$modal-inner: $modal-height - (($modal-title) + ($modal-button));
+
 @mixin sm {
   @media (max-width: 599px) {
     @content;
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 80%);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes slideUp-mobile {
+  from {
+    transform: translate(-50%, 80%);
+  }
+  to {
+    transform: translate(-50%, -100%);
+  }
+}
+
+@mixin modal-scrollbar {
+  height: 100%;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    position: fixed;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    position: fixed;
+    background: $primary;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    position: fixed;
+    background: #54bab824;
+  }
+}
+
+/* Search.js */
 .search-inner {
   padding: 0 4rem 0 4rem !important;
 
@@ -50,41 +116,7 @@
   }
 }
 
-.top {
-  &__search-dropdown,
-  &__search-label {
-    font-size: 0.9rem !important;
-  }
-
-  &__search-standard,
-  &__search-field,
-  &__search-button {
-    width: 100%;
-  }
-
-  &__search-field-wrapper {
-    margin: 0 1rem !important;
-  }
-
-  &__date-select:last-child {
-    margin-right: 0;
-  }
-
-  &__date-picker {
-    position: relative;
-    margin-top: 0.3rem;
-
-    &--calendar {
-      justify-content: end;
-      margin-top: 0.5rem;
-    }
-
-    @include sm {
-      display: none !important;
-    }
-  }
-}
-
+/* SearchBar.js */
 .search-bar {
   position: relative;
 
@@ -98,15 +130,15 @@
   }
 }
 
+/* FilterModal.js */
 .filter-modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 450px;
-  height: 55%;
-  min-height: 100px;
+  height: $modal-height;
   background-color: #fff;
+  transform: translate(-50%, -50%);
   padding: 4;
 
   // 반응형
@@ -116,10 +148,35 @@
     transform: translate(-50%, -100%);
   }
 
+  &__title {
+    font-size: $modal-title-size;
+    padding: $modal-title-padding 0;
+
+    &--button {
+      position: absolute;
+      left: 0;
+      line-height: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding-left: 10px;
+    }
+  }
+
+  &__inner {
+    @include modal-scrollbar();
+    max-height: $modal-inner;
+  }
+
   &__item {
+    width: 100%;
+    background-color: #fff;
+    border: none;
     border-bottom: 1px solid #ccc;
+    text-align: start;
     padding: 13px 10px;
     cursor: pointer;
+    font-size: 15px;
 
     &--arrow {
       width: 18px !important;
@@ -130,7 +187,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 45px;
+    height: $modal-button;
     background-color: $primary;
     border: none;
     cursor: pointer;
@@ -145,6 +202,10 @@
     font-size: 11px;
     padding-left: 6px;
     color: #888;
+  }
+
+  & span:first-child {
+    width: 100%;
   }
 }
 

@@ -1,6 +1,6 @@
 import { useReducer, createContext, useContext } from "react";
 
-/* reducer */
+/* search reducer */
 const initialState = { standard: 0 };
 
 function reducer(state, action) {
@@ -14,7 +14,7 @@ function reducer(state, action) {
   }
 }
 
-/* context */
+/* search context */
 const SearchStateContext = createContext();
 const SearchDispatchContext = createContext();
 

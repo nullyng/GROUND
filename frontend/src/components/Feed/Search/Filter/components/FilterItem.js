@@ -1,35 +1,30 @@
 import { Grid } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useFilterDispatch } from "../FilterContext";
+import { useFilterDispatch, useFilterState } from "../FilterContext";
 
-function DateFilterItem() {
+function FilterItem({ item }) {
+  const { id, select } = useFilterState();
   const dispatch = useFilterDispatch();
-  
-  const startDate = "2022-08-13";
-  const endDate = "2022-08-13";
 
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch({ type: "title", id: 1 });
+    dispatch({ type: "title", id: item.id });
     dispatch({ type: "select" });
   };
 
   return (
     <Grid
-      className="filter-modal__item filter-modal__item--date"
+      className="filter-modal__item"
+      onClick={handleClick}
       container
       justifyContent="center"
-      onClick={handleClick}
     >
       <Grid item xs={11}>
-        기간
-        <span className="date-item__range">
-          {startDate} ~ {endDate}
-        </span>
+        {item.title}
       </Grid>
       <ArrowForwardIosIcon className="filter-modal__item--arrow" />
     </Grid>
   );
 }
 
-export default DateFilterItem;
+export default FilterItem;
