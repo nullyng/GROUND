@@ -6,7 +6,7 @@ $modal-button: 45px;
 $modal-title-padding: 15px;
 $modal-title-size: 20px;
 $modal-title: ($modal-title-padding) * 2 + ($modal-title-size) + 7px;
-$modal-inner: $modal-height - (($modal-title) + ($modal-button));
+$modal-inner: $modal-height - (($modal-button));
 
 @mixin sm {
   @media (max-width: 599px) {
@@ -32,6 +32,7 @@ $modal-inner: $modal-height - (($modal-title) + ($modal-button));
   &::-webkit-scrollbar-track {
     position: fixed;
     background: #54bab824;
+    margin-top: $modal-title;
   }
 }
 
@@ -40,7 +41,7 @@ $modal-inner: $modal-height - (($modal-title) + ($modal-button));
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 450px;
+  width: 500px;
   height: $modal-height;
   background-color: #fff;
   transform: translate(-50%, -50%);
@@ -51,6 +52,10 @@ $modal-inner: $modal-height - (($modal-title) + ($modal-button));
     width: 100%;
     top: 100%;
     transform: translate(-50%, -100%);
+
+    & .MuiTypography-root {
+      font-size: 15px;
+    }
   }
 
   &__title {
@@ -100,6 +105,27 @@ $modal-inner: $modal-height - (($modal-title) + ($modal-button));
     color: #fff;
     font-weight: 600;
     font-size: 1.1rem;
+  }
+}
+
+.filter-select {
+  padding: 0 20px;
+
+  &__checkboxes {
+    padding-top: 5px;
+    padding-left: 10px;
+  }
+
+  @include sm() {
+    padding: 0;
+
+    &__radio {
+      padding-left: 20px;
+    }
+
+    &__checkboxes {
+      padding-left: 20px;
+    }
   }
 }
 

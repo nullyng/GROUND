@@ -10,7 +10,7 @@ function DateFilterItem() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch({ type: "title", id: 1 });
+    dispatch({ type: "title", id: 0 });
     dispatch({ type: "select" });
   };
 

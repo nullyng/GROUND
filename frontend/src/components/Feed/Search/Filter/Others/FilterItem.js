@@ -1,12 +1,11 @@
 import { Grid } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useFilterDispatch, useFilterState } from "../FilterContext";
+import { useFilterDispatch } from "../FilterContext";
 
 function FilterItem({ item }) {
-  const { id, select } = useFilterState();
   const dispatch = useFilterDispatch();
 
-  const handleClick = (e) => {
+  const handleClickIFilterItem = (e) => {
     e.preventDefault();
     dispatch({ type: "title", id: item.id });
     dispatch({ type: "select" });
@@ -15,7 +14,7 @@ function FilterItem({ item }) {
   return (
     <Grid
       className="filter-modal__item"
-      onClick={handleClick}
+      onClick={handleClickIFilterItem}
       container
       justifyContent="center"
     >

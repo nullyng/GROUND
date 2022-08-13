@@ -1,4 +1,5 @@
-import { useFilterState } from "./FilterContext";
+import { Grid } from "@mui/material";
+import { useFilterDispatch, useFilterState } from "./FilterContext";
 
 import FilterTitle from "./FilterTitle";
 import DateFilterItem from "./Date/DateFilterItem";
@@ -6,18 +7,23 @@ import FilterItem from "./Others/FilterItem";
 import FilterSelect from "./Others/FilterSelect";
 
 const titles = [
-  { id: 0, title: "필터" },
-  { id: 1, title: "기간" },
-  { id: 2, title: "운동종목" },
-  { id: 3, title: "성별" },
-  { id: 4, title: "연령대" },
-  { id: 5, title: "지역" },
+  { id: 0, title: "기간" },
+  { id: 1, title: "운동종목" },
+  { id: 2, title: "성별" },
+  { id: 3, title: "연령대" },
+  { id: 4, title: "지역" },
 ];
 
-const items = titles.filter((title) => title.id > 1);
+const items = titles.filter((title) => title.id > 0);
 
 function FilterContent() {
-  const { select } = useFilterState();
+  const { id, select } = useFilterState();
+  const dispatch = useFilterDispatch();
+
+  // 타이틀 뒤로가기 눌렀을 때
+  const handleClickBack = () => {
+    dispatch({ type: "select" });
+  };
 
   const filterItems = items.map((item) => (
     <FilterItem key={item.id} item={item} />
@@ -25,14 +31,35 @@ function FilterContent() {
 
   return (
     <div className="filter-modal__inner">
-      <FilterTitle titles={titles} />
-      {!select && (
-        <>
-          <DateFilterItem />
-          {filterItems}
-        </>
-      )}
-      {select && <FilterSelect />}
+      {
+        /* 필터 메인 */
+        !select && (
+          <>
+            <Grid
+              className="filter-modal__title content__title-desktop"
+              container
+              justifyContent="center"
+            >
+              필터
+            </Grid>
+            <DateFilterItem />
+            {filterItems}
+          </>
+        )
+      }
+      {
+        /* 필터 항목 선택했을 때 */
+        select && (
+          <>
+            <FilterTitle
+              title={titles[id].title}
+              handleClickBack={handleClickBack}
+            />
+            {id === 0 && "날짜선택"}
+            {id !== 0 && <FilterSelect />}
+          </>
+        )
+      }
     </div>
   );
 }
