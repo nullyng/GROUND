@@ -1,7 +1,9 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
-import theme from "components/common/theme.js";
+
 import { useSearchState, useSearchDispatch } from "../Hook/SearchContext";
+
+import theme from "components/common/theme.js";
 
 function SearchStandard() {
   const { standard } = useSearchState();

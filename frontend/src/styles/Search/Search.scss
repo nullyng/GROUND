@@ -102,7 +102,26 @@
 }
 
 .filter-modal {
-  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  background-color: #fff;
+  padding: 4;
+
+  // 반응형
+  @include tablet() {
+    width: 100%;
+    top: 100%;
+    transform: translate(-50%, -100%);
+  }
+
+  @include mobile() {
+    width: 100%;
+    top: 100%;
+    transform: translate(-50%, -100%);
+  }
 
   &__button-wrapper {
     text-align: end;
@@ -226,6 +245,6 @@
 .no-search-result {
   display: flex;
   justify-content: center;
-  color:rgb(148, 148, 148);
+  color: rgb(148, 148, 148);
   margin-top: 6rem;
 }

@@ -1,16 +1,29 @@
 import { Divider, Grid, Paper, InputBase, IconButton } from "@mui/material";
-// import Paper from "@mui/material/Paper";
-// import InputBase from "@mui/material/InputBase";
-// import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
+
+import { useState } from "react";
+import { useSearchState } from "../Hook/SearchContext";
+
+import FilterModal from "./FilterModal";
 
 export default function SearchBar() {
+  const { standard } = useSearchState();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Grid className="search-bar" container>
       <Paper className="search-bar__wrapper" component="div">
-        <IconButton sx={{ p: "10px" }}>
-          <FilterAltIcon />
+        <IconButton
+          sx={{ p: "10px" }}
+          onClick={handleOpen}
+          disabled={standard === 0 ? false : true}
+        >
+          {standard === 0 ? <FilterAltIcon /> : <FilterAltOffIcon />}
         </IconButton>
         <Divider
           sx={{ height: 28, m: 0.5, borderColor: "#54BAB9" }}
@@ -25,6 +38,7 @@ export default function SearchBar() {
           <SearchIcon />
         </IconButton>
       </Paper>
+      <FilterModal open={open} handleClose={handleClose} />
     </Grid>
   );
 }
