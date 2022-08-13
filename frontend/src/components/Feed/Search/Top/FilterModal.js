@@ -1,26 +1,21 @@
-import { Box, Divider, Grid, Modal } from "@mui/material";
-import TitleBar from "components/common/TitleBar";
+import { Box, Grid, Modal } from "@mui/material";
 
 function FilterModal({ open, handleClose }) {
   return (
     <Modal
-      open={open}
+      open={true}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box className="filter-modal">
+        <Grid className="content__title-desktop" textAlign="center" item>
+          <h3>필터</h3>
+        </Grid>
         <form>
-          <Grid container direction="column">
-            <Grid className="content__title-desktop" textAlign="center" item>
-              <h3>필터</h3>
-            </Grid>
-            <Grid item>운동종목</Grid>
-            <Grid item>성별</Grid>
-            <Grid item>연령대</Grid>
-            <Grid item>지역</Grid>
-          </Grid>
+          <div className="filter-modal__inner">hi</div>
         </form>
+        <button className="filter-modal__submit">설정</button>
       </Box>
     </Modal>
   );
