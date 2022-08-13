@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useFilterDispatch, useFilterState } from "../FilterContext";
+import { useFilterDispatch, useFilterState } from "./FilterContext";
 
 function FilterTitle({ titles }) {
   const { id, select } = useFilterState();

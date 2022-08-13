@@ -1,9 +1,11 @@
+import "styles/Search/Filter.scss";
+
 import { Box, Modal } from "@mui/material";
 
 import { FilterProvider } from "./FilterContext";
 
-import FilterTitle from "./components/FilterTitle";
-import FilterContent from "./components/FilterContent";
+import FilterTitle from "./FilterTitle";
+import FilterContent from "./FilterContent";
 
 const titles = [
   { id: 0, title: "필터" },

@@ -1,8 +1,8 @@
-import { useFilterState } from "../FilterContext";
+import { useFilterState } from "./FilterContext";
 
-import DateFilterItem from "../Date/DateFilterItem";
-import FilterItem from "./FilterItem";
-import FilterSelect from "./FilterSelect";
+import DateFilterItem from "./Date/DateFilterItem";
+import FilterItem from "./Others/FilterItem";
+import FilterSelect from "./Others/FilterSelect";
 
 function FilterContent({ items }) {
   const { select } = useFilterState();
