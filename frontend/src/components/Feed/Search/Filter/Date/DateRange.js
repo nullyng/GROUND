@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import theme from "components/common/theme.js";
-import { date } from "../../initData";
+import { date } from "../../../../../assets/data/initData";
 
 const dateRadio = date.map((item, index) => (
   <FormControlLabel
