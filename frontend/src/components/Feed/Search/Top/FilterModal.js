@@ -1,4 +1,16 @@
 import { Box, Grid, Modal } from "@mui/material";
+import FilterItem from "../Filter/FilterItem";
+
+const items = [
+  { id: 1, content: "운동종목" },
+  { id: 2, content: "성별" },
+  { id: 3, content: "연령대" },
+  { id: 4, content: "지역" },
+];
+
+const filterItem = items.map((item) => (
+  <FilterItem key={item.id} title={item.content} />
+));
 
 function FilterModal({ open, handleClose }) {
   return (
@@ -13,7 +25,9 @@ function FilterModal({ open, handleClose }) {
           <h3>필터</h3>
         </Grid>
         <form>
-          <div className="filter-modal__inner">hi</div>
+          <div className="filter-modal__inner">
+            {filterItem}
+          </div>
         </form>
         <button className="filter-modal__submit">설정</button>
       </Box>

@@ -103,8 +103,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 50%;
+  width: 450px;
+  height: 55%;
   min-height: 100px;
   background-color: #fff;
   padding: 4;
@@ -114,6 +114,11 @@
     width: 100%;
     top: 100%;
     transform: translate(-50%, -100%);
+  }
+
+  &__item {
+    border-bottom: 1px solid #ccc;
+    padding: 13px 10px;
   }
 
   &__submit {
