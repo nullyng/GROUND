@@ -8,7 +8,7 @@ function FilterItem({ title }) {
         <Grid item xs={11}>
           {title}
         </Grid>
-        <ArrowForwardIosIcon />
+        <ArrowForwardIosIcon className="filter-modal__item--arrow" />
       </Grid>
     </div>
   );

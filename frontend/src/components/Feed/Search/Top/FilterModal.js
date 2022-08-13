@@ -1,4 +1,5 @@
 import { Box, Grid, Modal } from "@mui/material";
+import DateFilterItem from "../Filter/Date/DateFilterItem";
 import FilterItem from "../Filter/FilterItem";
 
 const items = [
@@ -26,6 +27,7 @@ function FilterModal({ open, handleClose }) {
         </Grid>
         <form>
           <div className="filter-modal__inner">
+            <DateFilterItem />
             {filterItem}
           </div>
         </form>

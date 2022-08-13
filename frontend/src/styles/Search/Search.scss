@@ -119,6 +119,10 @@
   &__item {
     border-bottom: 1px solid #ccc;
     padding: 13px 10px;
+
+    &--arrow {
+      width: 18px !important;
+    }
   }
 
   &__submit {
@@ -132,6 +136,14 @@
     color: #fff;
     font-weight: 600;
     font-size: 1.1rem;
+  }
+}
+
+.date-item {
+  &__range {
+    font-size: 11px;
+    padding-left: 6px;
+    color: #888;
   }
 }
 
