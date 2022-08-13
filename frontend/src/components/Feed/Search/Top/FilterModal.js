@@ -14,6 +14,10 @@ const filterItem = items.map((item) => (
 ));
 
 function FilterModal({ open, handleClose }) {
+  const submit = () => {
+    handleClose();
+  };
+
   return (
     <Modal
       open={true}
@@ -30,8 +34,10 @@ function FilterModal({ open, handleClose }) {
             <DateFilterItem />
             {filterItem}
           </div>
+          <button className="filter-modal__submit" onClick={submit}>
+            설정
+          </button>
         </form>
-        <button className="filter-modal__submit">설정</button>
       </Box>
     </Modal>
   );
