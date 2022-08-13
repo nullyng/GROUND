@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import userImage from "assets/images/userImage.png";
-import NoSearchResult from "./NoSearchResult";
+import NoSearchResult from "../NoSearchResult";
 
 function UserSearchResult({ user }) {
   return (

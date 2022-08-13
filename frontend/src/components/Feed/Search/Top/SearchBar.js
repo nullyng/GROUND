@@ -4,7 +4,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 
 import { useState } from "react";
-import { useSearchState } from "../Hook/SearchContext";
+import { useSearchState } from "../SearchContext";
 
 import FilterModal from "./FilterModal";
 

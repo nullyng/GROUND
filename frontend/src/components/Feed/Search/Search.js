@@ -1,7 +1,7 @@
 import "styles/Search/Search.scss";
 import { Grid } from "@mui/material";
 
-import { SearchProvider } from "./Hook/SearchContext";
+import { SearchProvider } from "./SearchContext";
 
 import SearchTitle from "./Top/SearchTitle";
 import SearchTop from "./Top/SearchTop";

@@ -1,4 +1,5 @@
-import { Box, Grid, Modal } from "@mui/material";
+import { Box, Divider, Grid, Modal } from "@mui/material";
+import TitleBar from "components/common/TitleBar";
 
 function FilterModal({ open, handleClose }) {
   return (
@@ -11,7 +12,13 @@ function FilterModal({ open, handleClose }) {
       <Box className="filter-modal">
         <form>
           <Grid container direction="column">
-            모달이다잉
+            <Grid className="content__title-desktop" textAlign="center" item>
+              <h3>필터</h3>
+            </Grid>
+            <Grid item>운동종목</Grid>
+            <Grid item>성별</Grid>
+            <Grid item>연령대</Grid>
+            <Grid item>지역</Grid>
           </Grid>
         </form>
       </Box>

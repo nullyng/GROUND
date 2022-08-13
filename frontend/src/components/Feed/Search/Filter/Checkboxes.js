@@ -1,12 +1,15 @@
 import { FormControlLabel, Checkbox, Grid, FormControl } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+
 import { useState } from "react";
 import { useController } from "react-hook-form";
-import { ThemeProvider } from "@emotion/react";
+
 import theme from "components/common/theme.js";
 
 const Checkboxes = ({ options, control, name, radio, xs }) => {
   const { field } = useController({ control, name });
   const [value, setValue] = useState(options);
+
   return (
     <ThemeProvider theme={theme}>
       <FormControl>

@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { type } from "../../../../assets/data/initData";
+import { type } from "assets/data/initData";
 
 function SearchSort({ sortType, setSortType, onSubmit }) {
   return (
