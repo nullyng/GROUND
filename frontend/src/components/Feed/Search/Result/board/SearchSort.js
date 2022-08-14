@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import { types } from "assets/data/initData";
 import { useSearchState, useSearchDispatch } from "../../SearchContext";
 
-function SearchSort({ sortType, setSortType, onSubmit }) {
+function SearchSort({ handleClickSort }) {
   const { type } = useSearchState();
   const dispatch = useSearchDispatch();
 
@@ -13,13 +13,11 @@ function SearchSort({ sortType, setSortType, onSubmit }) {
           className="search-inner__result__sort"
           key={index}
           item
-          // sx={
-          //   type === item.id ? { color: "black", fontWeight: "bold" } : {}
-          // }
-          // onClick={() => {
-          //   setSortType(item.id);
-          //   onSubmit(item.id);
-          // }}
+          sx={type === item.id ? { color: "black", fontWeight: "bold" } : {}}
+          onClick={() => {
+            dispatch({ type: "type", value: item.id });
+            handleClickSort(item.id);
+          }}
         >
           {item.value}
         </Grid>

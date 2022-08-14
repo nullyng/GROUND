@@ -14,9 +14,7 @@ const getSearchData = (filter) => {
   let searchData = [];
 
   if (filter.radio === "all") {
-    for (let value of filter.values) {
-      searchData.push(value.id);
-    }
+    searchData = filter.values.map((value) => value.id);
   } else {
     for (let value of filter.values) {
       if (value.checked) searchData.push(value.id);
@@ -39,6 +37,7 @@ export default function SearchBar() {
   const handleSearchClick = () => {
     let searchData = {};
     searchData.word = word;
+    dispatch({ type: "word", word: word });
     // 게시글 검색일 때
     if (standard === 0) {
       searchData = {
@@ -54,6 +53,7 @@ export default function SearchBar() {
       searchData.endDate = date.endDate.format("YYYY-MM-DD");
       // 검색 요청
       searchBoard(searchData, 0, (res) => {
+        console.log(res.data);
         dispatch({ type: "board", result: res.data });
       });
     }

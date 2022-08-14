@@ -5,6 +5,7 @@ import moment from "moment";
 const initialState = {
   standard: 0,
   type: "id",
+  word: "",
   date: { radio: "all", startDate: moment(), endDate: moment() },
   category: { radio: "all", values: interest },
   gender: { radio: "all", values: gender },
@@ -34,6 +35,10 @@ function reducer(state, action) {
       return state.standard === 0
         ? { ...state, standard: 1 }
         : { ...state, standard: 0 };
+    case "type":
+      return { ...state, type: action.value };
+    case "word":
+      return { ...state, word: action.word };
     case "date":
       return { ...state, date: action.date };
     case "category":
