@@ -9,6 +9,7 @@ import { FilterProvider } from "../Filter/FilterContext";
 
 import FilterModal from "../Filter/FilterModal";
 import { searchBoard, searchUser } from "api/search";
+import LatestSearchBox from "../Latest/LatestSearchBox";
 
 const getSearchData = (filter) => {
   let searchData = [];
@@ -27,8 +28,10 @@ const getSearchData = (filter) => {
 export default function SearchBar() {
   const { standard, date, category, gender, age, location } = useSearchState();
   const dispatch = useSearchDispatch();
+
   const [open, setOpen] = useState(false);
   const [word, setWord] = useState("");
+  const [latest, setLatest] = useState(false);
 
   const handleOpen = () => setOpen(true);
 
@@ -83,7 +86,9 @@ export default function SearchBar() {
           placeholder="검색어 입력"
           inputProps={{ "aria-label": "search-input" }}
           value={word}
-          onChange={(e) => setWord(e.currentTarget.value)}
+          onChange={(e) => setWord(e.target.value)}
+          onFocus={() => setLatest(true)}
+          onBlur={() => setLatest(false)}
         />
         <IconButton
           type="submit"
@@ -96,6 +101,7 @@ export default function SearchBar() {
           <SearchIcon />
         </IconButton>
       </Paper>
+      {latest && <LatestSearchBox />}
       <FilterProvider>
         <FilterModal open={open} setOpen={setOpen} />
       </FilterProvider>
