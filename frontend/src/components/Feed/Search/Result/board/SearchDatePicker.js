@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
-import DateRange from "./DateRange";
-import EndDatePicker from "./EndDatePicker";
-import StartDatePicker from "./StartDatePicker";
+import DateRadio from "../../Filter/Date/DateRadio";
+import EndDatePicker from "../../Filter/Date/EndDatePicker";
+import StartDatePicker from "../../Filter/Date/StartDatePicker";
 
 function SearchDatePicker({
   dateRange,
@@ -14,7 +14,7 @@ function SearchDatePicker({
   return (
     <>
       <Grid className="top__date-picker" container justifyContent="end">
-        <DateRange dateRange={dateRange} setDateRange={setDateRange} />
+        <DateRadio dateRange={dateRange} setDateRange={setDateRange} />
       </Grid>
       {dateRange === "custom" && (
         <Grid className="top__date-picker--calendar" container>

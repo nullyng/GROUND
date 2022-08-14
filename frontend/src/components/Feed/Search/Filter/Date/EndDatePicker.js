@@ -5,22 +5,21 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ThemeProvider } from "@emotion/react";
 import theme from "components/common/theme.js";
 
-export default function EndDatePicker({ startDate, endDate, setEndDate }) {
+export default function EndDatePicker({ radio, endDate, setEndDate }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <ThemeProvider theme={theme}>
         <DatePicker
-          label="종료 날짜"
-          value={endDate}
+          // value={endDate}
           inputFormat={"yyyy/MM/dd"}
-          minDate={startDate}
           maxDate={new Date()}
-          onChange={(newValue) => {
-            setEndDate(newValue);
-          }}
+          // onChange={(newValue) => {
+          //   setEndDate(newValue);
+          // }}
           renderInput={(params) => (
             <TextField {...params} className="date-picker" size="small" />
           )}
+          readOnly={radio !== "custom" ? true : false}
         />
       </ThemeProvider>
     </LocalizationProvider>

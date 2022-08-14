@@ -18,6 +18,8 @@ function reducer(state, action) {
       return { ...state, id: action.id };
     case "select":
       return { ...state, select: action.select };
+    case "date":
+      return { ...state, date: action.date };
     case "category":
       return {
         ...state,

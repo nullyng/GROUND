@@ -1,17 +1,15 @@
 import { Grid } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useFilterDispatch } from "../FilterContext";
+import { useFilterDispatch, useFilterState } from "../FilterContext";
 
 function DateFilterItem() {
+  const { date } = useFilterState();
   const dispatch = useFilterDispatch();
-
-  const startDate = "2022-08-13";
-  const endDate = "2022-08-13";
 
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch({ type: "title", id: 0 });
     dispatch({ type: "select", select: "false" });
+    dispatch({ type: "title", id: 0 });
   };
 
   return (
@@ -24,7 +22,12 @@ function DateFilterItem() {
       <Grid item xs={11}>
         기간
         <span className="date-item__range">
-          {startDate} ~ {endDate}
+          {date?.radio === "all" && "전체"}
+          {date?.radio !== "all" && (
+            <>
+              {date?.startDate} ~ {date?.endDate}
+            </>
+          )}
         </span>
       </Grid>
       <ArrowForwardIosIcon className="filter-modal__item--arrow" />

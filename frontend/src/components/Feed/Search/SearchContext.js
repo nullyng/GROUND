@@ -30,6 +30,8 @@ function reducer(state, action) {
       return state.standard === 0
         ? { ...state, standard: 1 }
         : { ...state, standard: 0 };
+    case "date":
+      return { ...state, date: action.date };
     case "category":
       return {
         ...state,

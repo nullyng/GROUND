@@ -10,11 +10,15 @@ import { FilterProvider } from "../Filter/FilterContext";
 import FilterModal from "../Filter/FilterModal";
 
 export default function SearchBar() {
-  const { standard } = useSearchState();
+  const state = useSearchState();
   const [open, setOpen] = useState(false);
+  const [word, setWord] = useState("");
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  const handleSearchClick = () => {
+    const { date, category, gender, age, location } = state;
+  };
 
   return (
     <Grid className="search-bar" container>
@@ -22,9 +26,9 @@ export default function SearchBar() {
         <IconButton
           sx={{ p: "10px" }}
           onClick={handleOpen}
-          disabled={standard === 0 ? false : true}
+          disabled={state.standard === 0 ? false : true}
         >
-          {standard === 0 ? <FilterAltIcon /> : <FilterAltOffIcon />}
+          {state.standard === 0 ? <FilterAltIcon /> : <FilterAltOffIcon />}
         </IconButton>
         <Divider
           sx={{ height: 28, m: 0.5, borderColor: "#54BAB9" }}
@@ -34,8 +38,15 @@ export default function SearchBar() {
           sx={{ ml: 1, flex: 1 }}
           placeholder="검색어 입력"
           inputProps={{ "aria-label": "search-input" }}
+          value={word}
+          onChange={(e) => setWord(e.currentTarget.value)}
         />
-        <IconButton type="submit" sx={{ p: "10px" }} aria-label="search-submit">
+        <IconButton
+          type="submit"
+          sx={{ p: "10px" }}
+          aria-label="search-submit"
+          onClick={handleSearchClick}
+        >
           <SearchIcon />
         </IconButton>
       </Paper>

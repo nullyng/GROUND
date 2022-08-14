@@ -7,6 +7,7 @@ import { useFilterDispatch, useFilterState } from "./FilterContext";
 import DateFilterItem from "./Date/DateFilterItem";
 import FilterItem from "./Others/FilterItem";
 import FilterSelect from "./Others/FilterSelect";
+import DateSelect from "./Date/DateSelect";
 
 const titles = [
   { id: 0, title: "기간" },
@@ -20,7 +21,7 @@ const types = ["date", "category", "gender", "age", "location"];
 const items = titles.filter((title) => title.id > 0);
 
 function FilterContent() {
-  const { category, gender, age, location } = useSearchState();
+  const { date, category, gender, age, location } = useSearchState();
   const { id, select } = useFilterState();
   const dispatch = useFilterDispatch();
 
@@ -30,6 +31,7 @@ function FilterContent() {
 
   // 현재 SearchContext에 설정되어 있는 필터값 불러와서 초기화
   useEffect(() => {
+    dispatch({ type: "date", date });
     dispatch({ type: "category", category });
     dispatch({ type: "gender", gender });
     dispatch({ type: "age", age });
@@ -58,7 +60,7 @@ function FilterContent() {
         /* 필터 항목 선택했을 때 */
         select && (
           <>
-            {id === 0 && "날짜선택"}
+            {id === 0 && <DateSelect />}
             {id !== 0 && <FilterSelect titles={titles} type={types[id]} />}
           </>
         )

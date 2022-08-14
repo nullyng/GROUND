@@ -8,6 +8,12 @@ $modal-title-size: 20px;
 $modal-title: ($modal-title-padding) * 2 + ($modal-title-size) + 7px;
 $modal-inner: $modal-height - (($modal-button));
 
+@mixin xs {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+
 @mixin sm {
   @media (max-width: 599px) {
     @content;
@@ -141,8 +147,28 @@ $modal-inner: $modal-height - (($modal-button));
   }
 }
 
+.date-select {
+  &--range {
+    padding: 0 10px;
+    padding-top: 5px;
+    font-weight: bold;
+  }
+
+  &__date-picker {
+    margin-top: 15px;
+  }
+}
+
 .date-picker {
-  width: 30%;
+  height: 100%;
+
+  & input {
+    font-size: 14px;
+  }
+
+  &__standard {
+    width: 30%;
+  }
 
   &__startDate {
     margin-right: 1rem !important;
@@ -150,5 +176,21 @@ $modal-inner: $modal-height - (($modal-button));
 
   @include mobile() {
     font-size: 0.5rem;
+  }
+}
+
+.date-radio {
+  @include sm() {
+    & .MuiTypography-root {
+      font-size: 13px;
+    }
+  }
+
+  &__radio-group {
+    justify-content: center;
+    @include xs() {
+      justify-content: start;
+      padding-left: 18px;
+    }
   }
 }
