@@ -66,6 +66,11 @@ function reducer(state, action) {
         ...state,
         boardResult: action.result,
       };
+    case "user":
+      return {
+        ...state,
+        userResult: action.result,
+      };
     default:
       throw new Error();
   }

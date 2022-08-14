@@ -1,35 +1,16 @@
-import { Grid } from "@mui/material";
-import userImage from "assets/images/userImage.png";
+import { useSearchState } from "../../SearchContext";
 import NoSearchResult from "../NoSearchResult";
+import UserResultItem from "./UsearResultItem";
 
-function UserSearchResult({ user }) {
+function UserSearchResult() {
+  const { userResult } = useSearchState();
+
   return (
-    <Grid className="user-result__inner" container>
-      {user.length === 0 && (<NoSearchResult />)}
-      <div className="user-result__profile-wrapper">
-        <img
-          className="user-result__profile-img"
-          src={userImage}
-          alt="user_image"
-        />
-      </div>
-      <Grid item xs={9}>
-        <Grid
-          className="user-result__info-wrapper"
-          container
-          alignContent="center"
-        >
-          <Grid className="user-result__info" container direction="column">
-            <Grid className="user-result__info__nickname" item>
-              {user.nickname}
-            </Grid>
-            <Grid className="user-result__info__userId" item>
-              {user.username}
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+    <>
+      {userResult.length === 0 && <NoSearchResult />}
+      {userResult.length !== 1 &&
+        userResult.map((user) => <UserResultItem user={user} />)}
+    </>
   );
 }
 

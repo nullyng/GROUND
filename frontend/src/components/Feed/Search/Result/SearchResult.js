@@ -10,7 +10,7 @@ function SearchResult() {
   return (
     <Grid className="search-inner__result" container direction="column">
       {standard === 0 && <BoardSearchResult />}
-      {/* {standard === 1 && <UserSearchResult />} */}
+      {standard === 1 && <UserSearchResult />}
     </Grid>
   );
 }

@@ -8,7 +8,7 @@ import { useSearchState, useSearchDispatch } from "../SearchContext";
 import { FilterProvider } from "../Filter/FilterContext";
 
 import FilterModal from "../Filter/FilterModal";
-import { searchBoard } from "api/search";
+import { searchBoard, searchUser } from "api/search";
 
 const getSearchData = (filter) => {
   let searchData = [];
@@ -53,12 +53,14 @@ export default function SearchBar() {
       searchData.endDate = date.endDate.format("YYYY-MM-DD");
       // 검색 요청
       searchBoard(searchData, 0, (res) => {
-        console.log(res.data);
         dispatch({ type: "board", result: res.data });
       });
     }
     // 유저 검색일 때
     else {
+      searchUser(searchData, (res) =>
+        dispatch({ type: "user", result: res.data })
+      );
     }
   };
 
