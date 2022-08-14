@@ -1,28 +1,24 @@
-import { FormControlLabel, Checkbox, Grid, FormControl } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
-
-import { useState } from "react";
+import { FormControlLabel, Checkbox, Grid, FormControl } from "@mui/material";
 
 import theme from "components/common/theme.js";
 
-const Checkboxes = ({ items, xs }) => {
-  const [checkedItems, setCheckedItems] = useState(items);
-
+const Checkboxes = ({ xs, values, setValues }) => {
   return (
     <ThemeProvider theme={theme}>
       <FormControl>
         <Grid className="filter-select__checkboxes" container>
-          {items.map((item, index) => (
+          {values.map((item, index) => (
             <Grid item xs={xs} key={item.id}>
               <FormControlLabel
                 control={
                   <Checkbox
                     onChange={(e) => {
-                      const valueCopy = [...checkedItems];
+                      const valueCopy = [...values];
                       // update checkbox value
                       valueCopy[index].checked = e.target.checked;
                       // update local state
-                      setCheckedItems(valueCopy);
+                      setValues(valueCopy);
                     }}
                     type="checkbox"
                   />

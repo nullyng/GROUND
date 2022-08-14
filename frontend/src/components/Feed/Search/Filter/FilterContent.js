@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
-import { useFilterDispatch, useFilterState } from "./FilterContext";
 
-import FilterTitle from "./FilterTitle";
+import { useFilterState } from "./FilterContext";
+
 import DateFilterItem from "./Date/DateFilterItem";
 import FilterItem from "./Others/FilterItem";
 import FilterSelect from "./Others/FilterSelect";
@@ -18,12 +18,6 @@ const items = titles.filter((title) => title.id > 0);
 
 function FilterContent() {
   const { id, select } = useFilterState();
-  const dispatch = useFilterDispatch();
-
-  // 타이틀 뒤로가기 눌렀을 때
-  const handleClickBack = () => {
-    dispatch({ type: "select" });
-  };
 
   const filterItems = items.map((item) => (
     <FilterItem key={item.id} item={item} />
@@ -51,12 +45,8 @@ function FilterContent() {
         /* 필터 항목 선택했을 때 */
         select && (
           <>
-            <FilterTitle
-              title={titles[id].title}
-              handleClickBack={handleClickBack}
-            />
             {id === 0 && "날짜선택"}
-            {id !== 0 && <FilterSelect />}
+            {id !== 0 && <FilterSelect titles={titles} />}
           </>
         )
       }

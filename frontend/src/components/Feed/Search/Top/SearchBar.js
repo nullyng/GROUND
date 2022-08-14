@@ -5,6 +5,7 @@ import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 
 import { useState } from "react";
 import { useSearchState } from "../SearchContext";
+import { FilterProvider } from "../Filter/FilterContext";
 
 import FilterModal from "../Filter/FilterModal";
 
@@ -38,7 +39,9 @@ export default function SearchBar() {
           <SearchIcon />
         </IconButton>
       </Paper>
-      <FilterModal open={open} handleClose={handleClose} />
+      <FilterProvider>
+        <FilterModal open={open} handleClose={handleClose} />
+      </FilterProvider>
     </Grid>
   );
 }

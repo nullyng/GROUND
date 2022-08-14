@@ -1,30 +1,32 @@
 import { useReducer, createContext, useContext } from "react";
 
 /* filter reducer */
-const filters = [
-  { startDate: new Date(), endDate: new Date() },
-  {
-    all: true,
-    checked: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-  },
-  { all: true, checked: ["MALE", "FEMALE"] },
-  {
-    all: true,
-    checked: ["teenager", "twenty", "thirty", "forty", "fifty", "sixty"],
-  },
-  {
-    all: true,
-    checked: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-  },
-];
-const initialState = { id: 0, select: false, filters };
+const initialState = { id: 0, select: false };
+
+const getFilters = (id, filters, action) => {
+  const newFilters = [];
+  for (let i = 0; i < filters.length; i++) {
+    if (i === id - 1) {
+      newFilters.push({ radio: action.radio, values: action.values });
+    } else {
+      newFilters.push(filters[i]);
+    }
+  }
+  console.log(newFilters);
+};
 
 function reducer(state, action) {
   switch (action.type) {
+    case "init": {
+      return { ...state, filters: action.filters };
+    }
     case "title":
       return { ...state, id: action.id };
     case "select":
       return { ...state, select: !state.select };
+    case "filters": {
+      return state;
+    }
     default:
       throw new Error();
   }

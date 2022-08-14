@@ -7,11 +7,15 @@ import {
 import { ThemeProvider } from "@emotion/react";
 import theme from "components/common/theme.js";
 
-const FilterRadio = () => {
+const FilterRadio = ({ radio, setRadio }) => {
   return (
     <ThemeProvider theme={theme}>
       <FormControl>
-        <RadioGroup row>
+        <RadioGroup
+          row
+          value={radio}
+          onChange={(e) => setRadio(e.target.value)}
+        >
           <FormControlLabel value="all" label="전체" control={<Radio />} />
           <FormControlLabel
             value="custom"

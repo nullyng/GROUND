@@ -1,7 +1,14 @@
 import { useReducer, createContext, useContext } from "react";
+import { interest, gender, age, location } from "assets/data/initData";
 
 /* search reducer */
-const initialState = { standard: 0 };
+const filters = [
+  { radio: "all", values: interest },
+  { radio: "all", values: gender },
+  { radio: "all", values: age },
+  { radio: "all", values: location },
+];
+const initialState = { standard: 0, filters };
 
 function reducer(state, action) {
   switch (action.type) {
@@ -9,6 +16,8 @@ function reducer(state, action) {
       return state.standard === 0
         ? { ...state, standard: 1 }
         : { ...state, standard: 0 };
+    case "filters":
+      return { ...state, filters: action.filters };
     default:
       throw new Error();
   }
@@ -20,6 +29,7 @@ const SearchDispatchContext = createContext();
 
 export function SearchProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
     <SearchStateContext.Provider value={state}>
       <SearchDispatchContext.Provider value={dispatch}>
