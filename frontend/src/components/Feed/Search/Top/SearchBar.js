@@ -67,6 +67,40 @@ export default function SearchBar() {
     }
   };
 
+  // 최근 검색 기록 눌렀을 때
+  const handleLatestClick = (latest) => {
+    let searchData = {};
+    searchData.word = latest;
+    dispatch({ type: "word", word: latest });
+    dispatch({ type: "type", value: "id" });
+    // 게시글 검색일 때
+    if (standard === 0) {
+      searchData = {
+        ...searchData,
+        type: "id",
+        category: getSearchData(category),
+        gender: getSearchData(gender),
+        age: getSearchData(age),
+        location: getSearchData(location),
+      };
+      if (date.radio === "all") searchData.startDate = "1900-01-01";
+      else searchData.startDate = date.startDate.format("YYYY-MM-DD");
+      searchData.endDate = date.endDate.format("YYYY-MM-DD");
+      // 검색 요청
+      searchBoard(searchData, 0, (res) => {
+        dispatch({ type: "board", result: res.data });
+      });
+    }
+    // 유저 검색일 때
+    else {
+      searchUser(searchData, (res) =>
+        dispatch({ type: "user", result: res.data })
+      );
+    }
+    setWord(latest);
+    setLatest(false);
+  };
+
   return (
     <Grid className="search-bar" container>
       <Paper className="search-bar__wrapper" component="div">
@@ -106,7 +140,12 @@ export default function SearchBar() {
           <SearchIcon />
         </IconButton>
       </Paper>
-      {latest && <LatestSearchBox setOpen={setLatest} />}
+      {latest && (
+        <LatestSearchBox
+          setOpen={setLatest}
+          handleLatestClick={handleLatestClick}
+        />
+      )}
       <FilterProvider>
         <FilterModal open={open} setOpen={setOpen} />
       </FilterProvider>

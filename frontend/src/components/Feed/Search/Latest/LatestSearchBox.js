@@ -13,7 +13,7 @@ import {
 import { useSearchState } from "../SearchContext";
 import { useState } from "react";
 
-function LatestSearchBox({ open, setOpen }) {
+function LatestSearchBox({ open, setOpen, handleLatestClick }) {
   const { standard } = useSearchState();
   const [userLatest, setUserLatest] = useState([]);
   const [boardLatest, setBoardLatest] = useState([]);
@@ -68,6 +68,7 @@ function LatestSearchBox({ open, setOpen }) {
               latest={standard === 0 ? boardLatest : userLatest}
               setOpen={setOpen}
               handleDeleteItem={handleDeleteItem}
+              handleLatestClick={handleLatestClick}
             />
           </Grid>
           <Grid
