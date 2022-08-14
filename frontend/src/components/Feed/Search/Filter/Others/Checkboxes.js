@@ -3,13 +3,13 @@ import { FormControlLabel, Checkbox, Grid, FormControl } from "@mui/material";
 
 import theme from "components/common/theme.js";
 
-const Checkboxes = ({ xs, values, setValues }) => {
+const Checkboxes = ({ xs, radio, values, setValues }) => {
   return (
     <ThemeProvider theme={theme}>
       <FormControl>
         <Grid className="filter-select__checkboxes" container>
-          {values.map((item, index) => (
-            <Grid item xs={xs} key={item.id}>
+          {values.map((value, index) => (
+            <Grid item xs={xs} key={value.id}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -21,9 +21,11 @@ const Checkboxes = ({ xs, values, setValues }) => {
                       setValues(valueCopy);
                     }}
                     type="checkbox"
+                    checked={radio === "all" ? true : value.checked}
+                    value={value.id}
                   />
                 }
-                label={item.value}
+                label={value.value}
               />
             </Grid>
           ))}
