@@ -19,7 +19,7 @@ const radioList = date.map((item, index) => (
   />
 ));
 
-function DateRadio({ radio, setRadio }) {
+function DateRadio({ radio, setRadio, handleRadioChange }) {
   return (
     <FormControl fullWidth>
       <ThemeProvider theme={theme}>
@@ -28,7 +28,7 @@ function DateRadio({ radio, setRadio }) {
           row
           value={radio}
           onChange={(e) => {
-            setRadio(e.target.value);
+            handleRadioChange(e.target.value);
           }}
         >
           {radioList}

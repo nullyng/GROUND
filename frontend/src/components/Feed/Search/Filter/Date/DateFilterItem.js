@@ -25,7 +25,7 @@ function DateFilterItem() {
           {date?.radio === "all" && "전체"}
           {date?.radio !== "all" && (
             <>
-              {date?.startDate} ~ {date?.endDate}
+              {date?.startDate.format("YYYY-MM-DD")} ~ {date?.endDate.format("YYYY-MM-DD")}
             </>
           )}
         </span>

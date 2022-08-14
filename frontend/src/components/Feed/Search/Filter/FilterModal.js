@@ -6,7 +6,7 @@ import FilterContent from "./FilterContent";
 import { useFilterDispatch, useFilterState } from "./FilterContext";
 
 function FilterModal({ open, setOpen }) {
-  const { select, category, gender, age, location } = useFilterState();
+  const { select, date, category, gender, age, location } = useFilterState();
   const filterDispatch = useFilterDispatch();
   const searchDispatch = useSearchDispatch();
 
@@ -19,6 +19,7 @@ function FilterModal({ open, setOpen }) {
   // 설정 버튼을 누르면 SearchContext 변경
   const submit = (e) => {
     e.preventDefault();
+    searchDispatch({ type: "date", date });
     searchDispatch({ type: "category", category });
     searchDispatch({ type: "gender", gender });
     searchDispatch({ type: "age", age });

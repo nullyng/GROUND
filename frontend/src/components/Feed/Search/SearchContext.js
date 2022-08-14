@@ -1,9 +1,10 @@
 import { useReducer, createContext, useContext } from "react";
 import { interest, gender, age, location } from "assets/data/initData";
+import moment from "moment";
 
 const initialState = {
   standard: 0,
-  date: { radio: "all", startDate: "", endDate: new Date() },
+  date: { radio: "all", startDate: moment(), endDate: moment() },
   category: { radio: "all", values: interest },
   gender: { radio: "all", values: gender },
   age: { radio: "all", values: age },
