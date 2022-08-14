@@ -148,6 +148,8 @@ $modal-inner: $modal-height - (($modal-button));
 }
 
 .date-select {
+  padding-top: 15px;
+
   &--range {
     padding: 0 10px;
     padding-top: 5px;

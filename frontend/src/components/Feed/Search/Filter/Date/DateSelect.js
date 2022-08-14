@@ -13,7 +13,8 @@ function DateSelect() {
   // 현재 선택된 라디오
   const [radio, setRadio] = useState("all");
   // 현재 시작 날짜, 종료 날짜
-  const [values, setValues] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   // 타이틀 뒤로가기 눌렀을 때
   const handleClickBack = () => {
@@ -31,11 +32,19 @@ function DateSelect() {
           justifyContent="center"
         >
           <Grid xs={5}>
-            <StartDatePicker radio={radio} />
+            <StartDatePicker
+              radio={radio}
+              startDate={startDate}
+              setStartDate={setStartDate}
+            />
           </Grid>
           <span className="date-select--range"> ~ </span>
           <Grid xs={5}>
-            <EndDatePicker radio={radio} />
+            <EndDatePicker
+              radio={radio}
+              endDate={endDate}
+              setEndDate={setEndDate}
+            />
           </Grid>
         </Grid>
       </Grid>
