@@ -13,6 +13,7 @@ const initialState = {
   location: { radio: "all", values: location },
   boardResult: [],
   userResult: [],
+  page: 0,
 };
 
 const copyFilters = (filters) => {
@@ -65,6 +66,17 @@ function reducer(state, action) {
       return {
         ...state,
         boardResult: action.result,
+        page: 0,
+      };
+    case "board-concat":
+      return {
+        ...state,
+        boardResult: state.boardResult.concat(action.result),
+      };
+    case "page":
+      return {
+        ...state,
+        page: state.page + 1,
       };
     case "user":
       return {

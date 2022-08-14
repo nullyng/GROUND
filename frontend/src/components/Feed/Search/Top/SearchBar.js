@@ -25,8 +25,7 @@ const getSearchData = (filter) => {
 };
 
 export default function SearchBar() {
-  const { standard, type, date, category, gender, age, location } =
-    useSearchState();
+  const { standard, date, category, gender, age, location } = useSearchState();
   const dispatch = useSearchDispatch();
   const [open, setOpen] = useState(false);
   const [word, setWord] = useState("");
@@ -38,11 +37,12 @@ export default function SearchBar() {
     let searchData = {};
     searchData.word = word;
     dispatch({ type: "word", word: word });
+    dispatch({ type: "type", value: "id" });
     // 게시글 검색일 때
     if (standard === 0) {
       searchData = {
         ...searchData,
-        type,
+        type: "id",
         category: getSearchData(category),
         gender: getSearchData(gender),
         age: getSearchData(age),
