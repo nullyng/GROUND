@@ -6,11 +6,11 @@ import FilterContent from "./FilterContent";
 import { useFilterDispatch, useFilterState } from "./FilterContext";
 
 function FilterModal({ open, setOpen }) {
-  const { category, gender, age, location } = useFilterState();
+  const { select, category, gender, age, location } = useFilterState();
   const filterDispatch = useFilterDispatch();
   const searchDispatch = useSearchDispatch();
 
-  // 모달창 밖에 클릭하면 실행
+  // 모달창 닫기
   const handleClose = () => {
     filterDispatch({ type: "select", select: false });
     setOpen(false);
@@ -19,6 +19,10 @@ function FilterModal({ open, setOpen }) {
   // 설정 버튼을 누르면 SearchContext 변경
   const submit = (e) => {
     e.preventDefault();
+    searchDispatch({ type: "category", category });
+    searchDispatch({ type: "gender", gender });
+    searchDispatch({ type: "age", age });
+    searchDispatch({ type: "location", location });
     handleClose();
   };
 
@@ -33,9 +37,11 @@ function FilterModal({ open, setOpen }) {
       >
         <Box className={open ? "filter-modal" : "filter-modal close"}>
           <FilterContent />
-          <button className="filter-modal__submit" onClick={submit}>
-            설정
-          </button>
+          {!select && (
+            <button className="filter-modal__submit" onClick={submit}>
+              설정
+            </button>
+          )}
         </Box>
       </Modal>
     </>

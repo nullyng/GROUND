@@ -18,7 +18,6 @@ function FilterSelect({ titles, type }) {
 
   // 타이틀 뒤로가기 눌렀을 때
   const handleClickBack = () => {
-    console.log("뒤로가기: ");
     dispatch({ type: "select", select: false });
     dispatch({ type: type, [type]: { radio: radio, values: values } });
   };
@@ -59,7 +58,12 @@ function FilterSelect({ titles, type }) {
         </Grid>
         <Divider />
         {radio !== "all" && (
-          <Checkboxes xs={4} radio={radio} values={values} setValues={setValues} />
+          <Checkboxes
+            xs={4}
+            radio={radio}
+            values={values}
+            setValues={setValues}
+          />
         )}
       </Grid>
     </>

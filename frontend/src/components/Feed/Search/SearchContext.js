@@ -11,11 +11,16 @@ const initialState = {
 };
 
 const copyFilters = (filters) => {
-  const newValues = [];
+  let newValues = [];
+
   for (let value of filters.values) {
-    let clone = Object.assign({}, value);
+    const clone = Object.assign({}, value);
+    if (filters.radio === "all") {
+      clone.checked = false;
+    }
     newValues.push(clone);
   }
+
   return { radio: filters.radio, values: newValues };
 };
 

@@ -30,13 +30,6 @@ function FilterContent() {
 
   // 현재 SearchContext에 설정되어 있는 필터값 불러와서 초기화
   useEffect(() => {
-    console.log(
-      "SearchContext값으로 필터 바꾸기",
-      category,
-      gender,
-      age,
-      location
-    );
     dispatch({ type: "category", category });
     dispatch({ type: "gender", gender });
     dispatch({ type: "age", age });

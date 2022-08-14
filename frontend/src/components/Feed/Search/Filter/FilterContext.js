@@ -9,7 +9,6 @@ const copyFilters = (filters) => {
     let clone = Object.assign({}, value);
     newValues.push(clone);
   }
-  console.log({ radio: filters.radio, values: newValues });
   return { radio: filters.radio, values: newValues };
 };
 
