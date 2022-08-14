@@ -8,8 +8,8 @@ import { useSearchState, useSearchDispatch } from "../SearchContext";
 import { FilterProvider } from "../Filter/FilterContext";
 
 import FilterModal from "../Filter/FilterModal";
-import { searchBoard, searchUser } from "api/search";
 import LatestSearchBox from "../Latest/LatestSearchBox";
+import { searchBoard, searchUser } from "api/search";
 
 const getSearchData = (filter) => {
   let searchData = [];
@@ -88,7 +88,12 @@ export default function SearchBar() {
           value={word}
           onChange={(e) => setWord(e.target.value)}
           onFocus={() => setLatest(true)}
-          onBlur={() => setLatest(false)}
+          onBlur={(e) => {
+            const tabIndex = e.relatedTarget?.tabIndex;
+            if (tabIndex !== -1) {
+              setLatest(false);
+            }
+          }}
         />
         <IconButton
           type="submit"
@@ -101,7 +106,7 @@ export default function SearchBar() {
           <SearchIcon />
         </IconButton>
       </Paper>
-      {latest && <LatestSearchBox />}
+      {latest && <LatestSearchBox setOpen={setLatest} />}
       <FilterProvider>
         <FilterModal open={open} setOpen={setOpen} />
       </FilterProvider>

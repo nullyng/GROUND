@@ -10,64 +10,66 @@ import {
   deleteSearchBoard,
   deleteSearchUser,
 } from "api/search";
+import { useSearchState } from "../SearchContext";
+import { useState } from "react";
 
 function LatestSearchBox({ open, setOpen }) {
-  // useEffect(() => {
-  //   getSearchBoard((res) => {
-  //     setLatestBoard(res.data);
-  //   });
-  //   getSearchUser((res) => {
-  //     setLatestUser(res.data);
-  //   });
-  // }, []);
+  const { standard } = useSearchState();
+  const [userLatest, setUserLatest] = useState([]);
+  const [boardLatest, setBoardLatest] = useState([]);
 
-  // const handleDeleteItem = (id) => {
-  //   if (standard === "board") {
-  //     deleteSearchBoard(id, (res) => {
-  //       const deletedList = latestBoard.filter((board) => {
-  //         return board.id !== id;
-  //       });
-  //       setLatestBoard(deletedList);
-  //     });
-  //   } else if (standard === "user") {
-  //     deleteSearchUser(id, (res) => {
-  //       const deletedList = latestUser.filter((user) => {
-  //         return user.id !== id;
-  //       });
-  //       setLatestUser(deletedList);
-  //     });
-  //   }
-  // };
+  useEffect(() => {
+    getSearchBoard((res) => {
+      setBoardLatest(res.data);
+    });
+    getSearchUser((res) => {
+      setUserLatest(res.data);
+    });
+  }, []);
 
-  // const handleDeleteAll = (e) => {
-  //   e.preventDefault();
-  //   if (standard === "board") {
-  //     deleteAllSearchBoard(
-  //       (res) => {
-  //         setLatestBoard([]);
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //       }
-  //     );
-  //   } else if (standard === "user") {
-  //     deleteAllSearchUser(
-  //       (res) => {
-  //         setLatestUser([]);
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //       }
-  //     );
-  //   }
-  // };
+  const handleDeleteItem = (id) => {
+    if (standard === 0) {
+      deleteSearchBoard(id, (res) => {
+        const deletedList = boardLatest.filter((board) => {
+          return board.id !== id;
+        });
+        setBoardLatest(deletedList);
+      });
+    } else if (standard === 1) {
+      deleteSearchUser(id, (res) => {
+        const deletedList = userLatest.filter((user) => {
+          return user.id !== id;
+        });
+        setUserLatest(deletedList);
+      });
+    }
+  };
+
+  const handleDeleteAll = (e) => {
+    e.preventDefault();
+    if (standard === 0) {
+      deleteAllSearchBoard((res) => {
+        setBoardLatest([]);
+      });
+    } else if (standard === 1) {
+      deleteAllSearchUser((res) => {
+        setUserLatest([]);
+      });
+    }
+  };
 
   return (
     <Grid container justifyContent="end">
       <Box className="search-latest-box-wrapper">
         <Grid container className="search-latest-box" direction="column">
           <h4>최근 검색어</h4>
-          <Grid className="search-latest-box__content" item></Grid>
+          <Grid className="search-latest-box__content" item>
+            <LatestSearch
+              latest={standard === 0 ? boardLatest : userLatest}
+              setOpen={setOpen}
+              handleDeleteItem={handleDeleteItem}
+            />
+          </Grid>
           <Grid
             className="search-latest-box__deleteAll--wrapper"
             item
@@ -76,15 +78,15 @@ function LatestSearchBox({ open, setOpen }) {
             <span
               tabIndex={-1}
               className="search-latest-box__deleteAll"
-              // onClick={(e) => {
-              //   handleDeleteAll(e);
-              // }}
-              // onBlur={(e) => {
-              //   const tabIndex = e.relatedTarget?.tabIndex;
-              //   if (tabIndex !== -1) {
-              //     setOpenLatest(false);
-              //   }
-              // }}
+              onClick={(e) => {
+                handleDeleteAll(e);
+              }}
+              onBlur={(e) => {
+                const tabIndex = e.relatedTarget?.tabIndex;
+                if (tabIndex !== -1) {
+                  setOpen(false);
+                }
+              }}
             >
               전체 삭제
             </span>
