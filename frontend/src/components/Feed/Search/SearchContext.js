@@ -4,11 +4,14 @@ import moment from "moment";
 
 const initialState = {
   standard: 0,
+  type: "id",
   date: { radio: "all", startDate: moment(), endDate: moment() },
   category: { radio: "all", values: interest },
   gender: { radio: "all", values: gender },
   age: { radio: "all", values: age },
   location: { radio: "all", values: location },
+  boardResult: [],
+  userResult: [],
 };
 
 const copyFilters = (filters) => {
@@ -52,6 +55,11 @@ function reducer(state, action) {
       return {
         ...state,
         location: copyFilters(action.location),
+      };
+    case "board":
+      return {
+        ...state,
+        boardResult: action.result,
       };
     default:
       throw new Error();
