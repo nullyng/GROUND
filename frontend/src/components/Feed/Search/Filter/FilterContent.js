@@ -1,6 +1,8 @@
 import { Grid } from "@mui/material";
 
-import { useFilterState } from "./FilterContext";
+import { useEffect } from "react";
+import { useSearchState } from "../SearchContext";
+import { useFilterDispatch, useFilterState } from "./FilterContext";
 
 import DateFilterItem from "./Date/DateFilterItem";
 import FilterItem from "./Others/FilterItem";
@@ -14,14 +16,32 @@ const titles = [
   { id: 4, title: "지역" },
 ];
 
+const types = ["date", "category", "gender", "age", "location"];
 const items = titles.filter((title) => title.id > 0);
 
 function FilterContent() {
+  const { category, gender, age, location } = useSearchState();
   const { id, select } = useFilterState();
+  const dispatch = useFilterDispatch();
 
   const filterItems = items.map((item) => (
     <FilterItem key={item.id} item={item} />
   ));
+
+  // 현재 SearchContext에 설정되어 있는 필터값 불러와서 초기화
+  useEffect(() => {
+    console.log(
+      "SearchContext값으로 필터 바꾸기",
+      category,
+      gender,
+      age,
+      location
+    );
+    dispatch({ type: "category", category });
+    dispatch({ type: "gender", gender });
+    dispatch({ type: "age", age });
+    dispatch({ type: "location", location });
+  }, []);
 
   return (
     <div className="filter-modal__inner">
@@ -46,7 +66,7 @@ function FilterContent() {
         select && (
           <>
             {id === 0 && "날짜선택"}
-            {id !== 0 && <FilterSelect titles={titles} />}
+            {id !== 0 && <FilterSelect titles={titles} type={types[id]} />}
           </>
         )
       }

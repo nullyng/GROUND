@@ -4,14 +4,14 @@ import { useFilterDispatch } from "../FilterContext";
 
 function DateFilterItem() {
   const dispatch = useFilterDispatch();
-  
+
   const startDate = "2022-08-13";
   const endDate = "2022-08-13";
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch({ type: "title", id: 0 });
-    dispatch({ type: "select" });
+    dispatch({ type: "select", select: "false" });
   };
 
   return (

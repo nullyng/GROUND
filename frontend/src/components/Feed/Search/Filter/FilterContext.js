@@ -3,30 +3,41 @@ import { useReducer, createContext, useContext } from "react";
 /* filter reducer */
 const initialState = { id: 0, select: false };
 
-const getFilters = (id, filters, action) => {
-  const newFilters = [];
-  for (let i = 0; i < filters.length; i++) {
-    if (i === id - 1) {
-      newFilters.push({ radio: action.radio, values: action.values });
-    } else {
-      newFilters.push(filters[i]);
-    }
+const copyFilters = (filters) => {
+  const newValues = [];
+  for (let value of filters.values) {
+    let clone = Object.assign({}, value);
+    newValues.push(clone);
   }
-  console.log(newFilters);
+  return { radio: filters.radio, values: newValues };
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "init": {
-      return { ...state, filters: action.filters };
-    }
     case "title":
       return { ...state, id: action.id };
     case "select":
-      return { ...state, select: !state.select };
-    case "filters": {
-      return state;
-    }
+      return { ...state, select: action.select };
+    case "category":
+      return {
+        ...state,
+        category: copyFilters(action.category),
+      };
+    case "gender":
+      return {
+        ...state,
+        gender: copyFilters(action.gender),
+      };
+    case "age":
+      return {
+        ...state,
+        age: copyFilters(action.age),
+      };
+    case "location":
+      return {
+        ...state,
+        location: copyFilters(action.location),
+      };
     default:
       throw new Error();
   }

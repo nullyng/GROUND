@@ -40,7 +40,7 @@ export default function SearchBar() {
         </IconButton>
       </Paper>
       <FilterProvider>
-        <FilterModal open={open} handleClose={handleClose} />
+        <FilterModal open={open} setOpen={setOpen} />
       </FilterProvider>
     </Grid>
   );

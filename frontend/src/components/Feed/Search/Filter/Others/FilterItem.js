@@ -8,7 +8,7 @@ function FilterItem({ item }) {
   const handleClickIFilterItem = (e) => {
     e.preventDefault();
     dispatch({ type: "title", id: item.id });
-    dispatch({ type: "select" });
+    dispatch({ type: "select", select: true });
   };
 
   return (

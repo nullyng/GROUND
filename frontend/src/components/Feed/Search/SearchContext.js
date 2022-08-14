@@ -1,14 +1,23 @@
 import { useReducer, createContext, useContext } from "react";
 import { interest, gender, age, location } from "assets/data/initData";
 
-/* search reducer */
-const filters = [
-  { radio: "all", values: interest },
-  { radio: "all", values: gender },
-  { radio: "all", values: age },
-  { radio: "all", values: location },
-];
-const initialState = { standard: 0, filters };
+const initialState = {
+  standard: 0,
+  date: { radio: "all", startDate: "", endDate: new Date() },
+  category: { radio: "all", values: interest },
+  gender: { radio: "all", values: gender },
+  age: { radio: "all", values: age },
+  location: { radio: "all", values: location },
+};
+
+const copyFilters = (filters) => {
+  const newValues = [];
+  for (let value of filters.values) {
+    let clone = Object.assign({}, value);
+    newValues.push(clone);
+  }
+  return { radio: filters.radio, values: newValues };
+};
 
 function reducer(state, action) {
   switch (action.type) {
@@ -16,8 +25,26 @@ function reducer(state, action) {
       return state.standard === 0
         ? { ...state, standard: 1 }
         : { ...state, standard: 0 };
-    case "filters":
-      return { ...state, filters: action.filters };
+    case "category":
+      return {
+        ...state,
+        category: copyFilters(action.category),
+      };
+    case "gender":
+      return {
+        ...state,
+        gender: copyFilters(action.gender),
+      };
+    case "age":
+      return {
+        ...state,
+        age: copyFilters(action.age),
+      };
+    case "location":
+      return {
+        ...state,
+        location: copyFilters(action.location),
+      };
     default:
       throw new Error();
   }
