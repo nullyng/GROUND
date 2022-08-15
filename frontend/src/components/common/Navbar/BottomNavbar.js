@@ -15,10 +15,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAccountNoti, getBoardNoti } from "api/notification";
-<<<<<<< HEAD
-=======
 import { getUserState } from "api/user";
->>>>>>> 1b234388a0b610976a4e4362aa6cbbea460bae97
 
 function BottomNavbar({
   sideMenuIdx,
@@ -32,11 +29,8 @@ function BottomNavbar({
   const [accountNotiList, setAccountNotiList] = useState([]);
   const [notiCnt, setNotiCnt] = useState(0);
 
-<<<<<<< HEAD
-=======
   const [id, setId] = useState(0);
 
->>>>>>> 1b234388a0b610976a4e4362aa6cbbea460bae97
   useEffect(() => {
     // 서버에서 활동 알림 목록 받아오기
     getBoardNoti((res) => {
