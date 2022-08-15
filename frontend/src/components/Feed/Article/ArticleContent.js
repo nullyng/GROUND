@@ -8,7 +8,7 @@ function ArticleContent(props) {
     <Grid className="article-content">
       <Grid className="article-content__text">
         <span>{props.content}</span>
-        <span>더보기</span>
+        <span className="article-content more">더보기</span>
       </Grid>
       <Grid className="article-content__media">
         <MediaSlider images={props.images}/>
